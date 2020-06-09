@@ -100,7 +100,6 @@ class OutgoingSms(Resource):
     def get(self):
         """return JSON with criteria to fill"""
         return {"Fill out the text body and client number if empty and submit as JSON": dict(sender=request.headers.get('sender'),
-                                                                                             reciever=request.headers.get(
-            "receiver"),
-            text="")
-        }
+                                                                                             reciever=request.headers.get("receiver"),
+                                                                                             text="")
+                }
