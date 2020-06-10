@@ -42,7 +42,7 @@ class IncomingSms(Resource):
     def post(self):
         """Send a dynamic reply to an incoming text message"""
         # Get the message the user sent our number
-        body = request.values.get("Body")
+        body = request.values.get("Body", None)
         print(body)
 
         # Determine the right reply for this message
@@ -59,8 +59,11 @@ class IncomingSms(Resource):
             message = "Invalid message, Type 'HELLO' or 'HI' for a tip"
 
         # Call the Twilio Responder passing the message to it
-        response = twilio_responder(message)
-        return response
+        if message:
+            response = twilio_responder(message)
+            return response
+        else:
+            return {"info": "This endpoint is to be accessed by texting the Sender with a registered number"}, 403
 
 
 """
@@ -103,3 +106,6 @@ class OutgoingSms(Resource):
                                                                                              reciever=request.headers.get("receiver"),
                                                                                              text="")
                 }
+
+if __name__ == "__main__":
+    flask_app.run()
