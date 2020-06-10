@@ -54,7 +54,7 @@ def twilio_sender(request):
 
     #Sending the SMS
     print(message.sid)
-    return dict(message= f"SMS sent!",
+    return dict(message= "SMS sent!",
                  details= {
                      "from": twilio_number,
                      "body": text,
@@ -67,7 +67,7 @@ def twilio_responder(message):
     resp = MessagingResponse()
 
     #Pass the message into the TwiML response
-    resp.message("message")
+    resp.message(message)
 
     #return the response
     return str(resp)
