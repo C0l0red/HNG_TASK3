@@ -43,7 +43,8 @@ class IncomingSms(Resource):
         """Send a dynamic reply to an incoming text message"""
         # Get the message the user sent our number
         body = request.values.get("Body", None)
-        print(body)
+        if not body:
+            return {"info": "This endpoint is to be accessed by texting the Sender with a registered number"}, 403
 
         # Determine the right reply for this message
         if body.lower() in ("hello", "hi"):
@@ -59,11 +60,11 @@ class IncomingSms(Resource):
             message = "Invalid message, Type 'HELLO' or 'HI' for a tip"
 
         # Call the Twilio Responder passing the message to it
-        if message:
-            response = twilio_responder(message)
-            return response
-        else:
-            return {"info": "This endpoint is to be accessed by texting the Sender with a registered number"}, 403
+        twiml = twilio_responder(message)
+
+        response = make_response(str(twiml))
+        response.headers["content-type"] = 'application/xml'
+        return response
 
 
 """

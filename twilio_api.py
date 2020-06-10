@@ -52,6 +52,8 @@ def twilio_sender(request):
                 )
     except:
         return dict(error = "Invalid credentials or expired token"), 401
+    finally:
+        print(client)
 
     #Sending the SMS
     print(message.sid)
@@ -71,4 +73,5 @@ def twilio_responder(message):
     resp.message(message)
 
     #return the response
-    return str(resp)
+    
+    return resp
