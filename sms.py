@@ -47,12 +47,12 @@ class IncomingSms(Resource):
 
         # Determine the right reply for this message
         if body.lower() in ("hello", "hi"):
-            message = "Hi from Team-Titans! Send 'CHECK BALANCE' or '1' to see your balance. \nSend 'BYE' or '2' for a goodbye."
+            message = "Hi from Team-Titans! Send 'CHECK BALANCE' or 'CB' to see your balance. \nSend 'BYE' or for a goodbye."
 
-        elif body.lower() in ("check balance", '1'):
+        elif body.lower() in ("check balance", 'cb'):
             message = f"Your balance is {randint(1000,99999)}"
 
-        elif body.lower() in ('bye', "2"):
+        elif body.lower() == 'bye':
             message = "Goodbye"
 
         elif body:
